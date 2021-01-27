@@ -1,12 +1,12 @@
 body{
-    background-color: aliceblue; 
+    background-color: #f2dcbb; 
 }
 #header{
-    height:90px;
+    height:60px;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background-color:#ffd56b;
+    background-color:#ffa62b;
 }
 #header .auth-options{
     height: 100%;
@@ -22,7 +22,7 @@ body{
     margin-right: 5px;
     margin-left:5px;
 }
-#header.auth-options > button :hover{
+#header.auth-options  button :hover{
     background-color:red;
 }
 @media screen and (max-width:550px){
@@ -56,11 +56,11 @@ input {
     margin-top: 7%;
 }
 #footer{
-    height:40px;
+    height:50px;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background-color: aliceblue;
+    background-color: #fad586;
     position: absolute;
   left: 
   0;
@@ -72,7 +72,7 @@ input {
 #name {
     display: inline-block;
     overflow: hidden;
-    padding:2.5rem;
+    padding:1.5rem;
     padding-right:2rem;
     color:rgb(175, 110, 170);
     font-family:Georgia, 'Times New Roman', Times, serif;
@@ -101,4 +101,42 @@ input {
     font-weight: bold;
     margin-left:50%;
     font-style: italic;
+}
+#instruction{
+    margin-left:5%;
+}
+#instruction label{
+    padding-top: 0.4rem;
+    padding-right:0.5rem;
+    font-weight: bold;
+}
+#examtopic{
+    margin-left:5%;
+}
+#welcome-msg{
+    margin-left: 3%;
+}
+#instruction input[type=text]{
+    margin-right: 2rem;
+}
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 1.5em;
+    margin-left:0;
+}
+/* <!-- For header --> */
+header{
+    height: 100px;
+    background-color:#fdffbc;
+    text-align: center;
+    display: inline-block;
+}
+.Timer{
+    float:left;
+    margin-top: 5px;
+}
+#curTime{
+    margin-right: 5px;
+    float:right;
 }

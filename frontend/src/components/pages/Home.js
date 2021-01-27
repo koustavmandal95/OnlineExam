@@ -1,8 +1,8 @@
 import React ,{useContext} from 'react'
-import {Link,useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import UserContext from '../context/UserContext';
 const  Home = () => {
-    const {userData,setUserData} = useContext(UserContext);
+    const {userData} = useContext(UserContext);
     const history = useHistory();
     const Next =() =>{
         userData.user ? history.push("/profile"):history.push("/login");

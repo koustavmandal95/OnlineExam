@@ -1,14 +1,16 @@
 import React,{useContext} from 'react'
-import {withRouter,useHistory} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import UserContext from '../context/UserContext';
-function Profile() {
+import ExamPage from './ExamTopic';
+function Profile(props) {
     const {userData,setUserData} = useContext(UserContext);
-    const history = useHistory();
     return (
         <div>
-        {
-        userData.user ? (<h3> Welcome {userData.user.prn} Your Have Been Authenticated </h3>) : (<h3>Please  Authenticate </h3>)   
-        }
+            <h3 id="welcome-msg"> Welcome {userData.user.prn} Your Have Been Authenticated </h3>
+            <ExamPage subname={"OOPS in C++"} subid={100}/> 
+            <ExamPage subname={"Data Structure using C++"} subid={101}/> 
+            <ExamPage subname={"Core Java"} subid={102}/> 
+            <ExamPage subname={"Advance Web Programming"} subid={103}/> 
         </div>
     )
 }

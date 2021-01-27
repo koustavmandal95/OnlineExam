@@ -2,21 +2,9 @@ const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const bcrypt = require("bcrypt");
 const jwt    = require("jsonwebtoken");
+const connection = require('./dbConnection');
 dotenv.config();
 let instance = null;
-const connection = mysql.createConnection({
-    host:process.env.HOST,
-    user:process.env.USER,
-    password:process.env.PASSWORD,
-    database:process.env.DATABASE,
-    port:process.env.DB_PORT
-});
-connection.connect((err) =>{
-    if(err){
-        console.log(err)
-    }
-    console.log(`Connected to the DB ${process.env.DATABASE}`);
-})
 class Dbservice{
     static getDbServiceInstance(){
         return instance ? instance : new Dbservice();
@@ -26,7 +14,7 @@ class Dbservice{
         const {prn,fname,lname,phone,password,passwordCheck} = params;
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
-        const passwordHash =  bcrypt.hashSync(password,saltRounds);
+        const passwordHash =  bcrypt.hashSync(password,salt);
         const promise = new Promise((resolve,reject) =>{
             connection.query('select Prn from registration where Prn=?;',[prn],(error,results) =>{
                 if(error){
@@ -100,6 +88,28 @@ class Dbservice{
         }
         catch(err){
             console.log(err);
+        }
+    }
+    async getQuestion(subjectid){
+        try{
+            const response = await new Promise((resolve,reject) =>{
+                let query ="select question,optionA,optionB,optionC,optionD,answer from questionbank where subjectid = ?;"
+                connection.query(query,[subjectid],(error,result) =>{
+                    if(error){
+                        reject(new Error(error.sqlMessage));
+                    }
+                    if(result.length ===0){
+                        reject({msg:"Empty QuestionBank"})
+                    }
+                    resolve(result);
+                })
+           
+            });
+           return response;
+        }
+
+        catch(err){
+            return err;
         }
     }
 };

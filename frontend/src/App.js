@@ -6,8 +6,10 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import Instruction from './components/pages/Instruction';
 import ProtectedRoute from "./components/context/ProtectedRoute";
 import Profile from './components/pages/Profile';
+import Testpage from './components/pages/Testpage';
 import UserContext from "./components/context/UserContext";
 import Axios from 'axios';
 import './style.css';
@@ -39,7 +41,6 @@ export default function App() {
                    user:{displayName:userRes.data.displayName,prn:userRes.data.prn}
                 });
                 setAuth(true);
-                // console.log(userData)
             }
         }
             checkLoggedIn();
@@ -53,7 +54,10 @@ export default function App() {
                     <Route path="/login" component={Login}/>
                     <Route path="/register" component={Register}/>
                     <ProtectedRoute path="/profile" component={Profile} isAuth={isAuth}/>
+                    <ProtectedRoute exact path="/instruction" component={Instruction} isAuth={isAuth}/>
+                    <ProtectedRoute exact path="/test" component={Testpage} isAuth={isAuth}/>
                 </Switch>
+
                 <Footer/>
                 </UserContext.Provider>
             </BrowserRouter>

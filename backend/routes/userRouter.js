@@ -54,12 +54,12 @@ router.post("/tokenIsValid",async (req,res) =>{
 
         const verified = jwt.verify(token,process.env.JWT_Secret);
         if(!verified) return res.json(false);
-        else return res.json(true);
-        // const db = dbservice.getDbServiceInstance();
-        // const user = db.searchUserByPrn(verified.id);
-        // user
-        //     .then(data => res.json(data))
-        //     .catch(err => res.status(500).json(err));
+        // else return res.json(true);
+        const db = dbservice.getDbServiceInstance();
+        const user = db.searchUserByPrn(verified.id);
+        user
+            .then(data => res.json(data))
+            .catch(err => res.status(500).json(err));
     }
     catch(err){
         res.status(500).json({error : err.message})
