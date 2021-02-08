@@ -131,6 +131,7 @@ header{
     background-color:#fdffbc;
     text-align: center;
     display: inline-block;
+    overflow-block:hidden;
 }
 .Timer{
     float:left;
@@ -140,3 +141,11 @@ header{
     margin-right: 5px;
     float:right;
 }
+.result-center {
+    margin-top:15%;
+    margin-left: 30%;
+    width: 40%;
+
+    border: 3px solid blueviolet;
+    padding: 10px;
+  }

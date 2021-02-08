@@ -15,4 +15,4 @@ function Profile(props) {
     )
 }
 
-export default withRouter(Profile);
+export default Profile;

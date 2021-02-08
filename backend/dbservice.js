@@ -87,7 +87,7 @@ class Dbservice{
             return response;
         }
         catch(err){
-            console.log(err);
+            return err;
         }
     }
     async getQuestion(subjectid){
@@ -108,6 +108,26 @@ class Dbservice{
            return response;
         }
 
+        catch(err){
+            return err;
+        }
+    }
+    async getAnswer(subjectid){
+        try{
+            const response = await new Promise((resolve,reject) =>{
+                let query = "select questionId,answerOption from questionbank where subjectid=?;";
+                connection.query(query,[subjectid],(error,result) =>{
+                    if(error){
+                        reject(new Error(error.sqlMessage));
+                    }
+                    if(result.length ===0){
+                        reject({msg:"Empty QuestionBank"})
+                    }
+                    resolve(result);
+                })
+            });
+            return response;
+        }
         catch(err){
             return err;
         }

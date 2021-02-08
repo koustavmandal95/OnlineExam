@@ -1,5 +1,6 @@
 import React , {useContext,useState,useEffect} from 'react';
 import axios from 'axios';
+import {BrowserRouter,Switch,Route, Router} from "react-router-dom";
 import {useHistory,useLocation} from 'react-router-dom';
 import UserContext from "../context/UserContext";
 import Time from './TestComponent/Time';
@@ -12,7 +13,8 @@ export default function Testpage() {
     const [posts,setPosts] = useState([]);
     const [loading,setLoading] = useState(false);
     const [currentPage,setCurrentPage] = useState(1);
-    const [postsPerPage,setPostsPerPage] = useState(1);
+    const [answer,setAnswer] = useState();
+    const [postsPerPage,setPostsPerPage] = useState(5);
     const {userData,setUserData} = useContext(UserContext);
     const [message,setMessage] =useState(null);
     const location = useLocation();
@@ -24,6 +26,12 @@ export default function Testpage() {
             const res = await axios.get(`http://localhost:5000/test/${userData.user.prn}/${subid}`,{
                 headers:{"x-auth-token":token}
             });
+            const answerSet = await axios.get(`http://localhost:5000/test/${subid}`,{
+                headers:{"x-auth-token":token}
+            });
+            if(answerSet.data){
+                setAnswer(answerSet.data);
+            }
             if(res.data.msg){
                 setMessage(res.data.msg);
                 setLoading(false);
@@ -37,7 +45,7 @@ export default function Testpage() {
     },[])
     const indexofLastPost = currentPage*postsPerPage;
     const indexOfFirstPost = indexofLastPost -postsPerPage;
-    const currentPosts =  posts.slice(indexOfFirstPost,indexofLastPost);
+    const currentPosts =  posts.slice(0,posts.length);
     var time = new Date();
     var month = time.getMonth() + 1;
     // change page
@@ -60,8 +68,8 @@ export default function Testpage() {
             </div>
         </header>
             <div className="container pt-2 mt-5">
-                <Posts posts={currentPosts} currentPage={currentPage} loading={loading} message={message}/>
-                <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
+                <Posts posts={currentPosts} answer={answer}currentPage={currentPage} loading={loading} message={message}/>
+                {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}
             </div>
         </div>
     )

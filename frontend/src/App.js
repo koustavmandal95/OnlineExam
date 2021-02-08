@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/context/ProtectedRoute";
 import Profile from './components/pages/Profile';
 import Testpage from './components/pages/Testpage';
 import UserContext from "./components/context/UserContext";
+import Result from "./components/pages/Result";
 import Axios from 'axios';
 import './style.css';
 import 'semantic-ui-css/semantic.min.css';
@@ -56,9 +57,11 @@ export default function App() {
                     <ProtectedRoute path="/profile" component={Profile} isAuth={isAuth}/>
                     <ProtectedRoute exact path="/instruction" component={Instruction} isAuth={isAuth}/>
                     <ProtectedRoute exact path="/test" component={Testpage} isAuth={isAuth}/>
+                    <ProtectedRoute exact path="/result" component={Result} isAuth={isAuth}/>
+                    <ProtectedRoute path="/test/:id" component={Testpage} isAuth={isAuth}/>
                 </Switch>
 
-                <Footer/>
+                {/* <Footer/> */}
                 </UserContext.Provider>
             </BrowserRouter>
         )
